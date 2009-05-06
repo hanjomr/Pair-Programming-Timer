@@ -12,6 +12,7 @@
 		NSLog(@"%d",time);
 		[self startTimer];
 	} else {
+		[ticker invalidate];
 		[self genug:self];
 	}
 }
@@ -49,7 +50,6 @@
 - (IBAction)genug:(id)sender{
 	[self hideWindow];
 	[self toggleInterface];
-	[ticker invalidate];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self]; 
 }
 
