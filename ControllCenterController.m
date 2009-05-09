@@ -2,7 +2,7 @@
 #import "User.h"
 
 @implementation ControllCenterController
-@synthesize timeObject,users;
+@synthesize users;
 
 - (void)awakeFromNib {
 	NSLog(@"laoding");
@@ -25,7 +25,6 @@
 	}
 	[ersterKeyboardPopUp setMenu:menu1];
 	[zweiterKeyboardPopUp setMenu:menu2];
-	
 	[alertWindow setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
 }
 
@@ -37,7 +36,7 @@
 	[currentUserLabel setStringValue:[NSString stringWithFormat:@"%@ ist gerade dran",u.name]];
 }
 
-- (IBAction)startTimer:(id) sender {
+- (IBAction)go:(id) sender {
 	if ([sender state] == NSOnState) {
 		[self gatherDataFromUI];
 		[self startTimer];
@@ -59,16 +58,21 @@
 }
 
 -(void)startTimer{
-	[self toggleInterface];
+	[self toggleInputElements];
 	[durchlaufLabel setIntValue:durchlaeufe];
 	[self performSelector:@selector(switchUser) withObject:nil afterDelay:time];
 	[self startTicker];
-	
 }
 
-- (void)toggleInterface {
-	[zeitEingabe setEnabled:![zeitEingabe isEnabled]];
-	[durchlaufEingabe setEnabled:![durchlaufEingabe isEnabled]];
+- (void)toggleInputElements {
+	BOOL enabled = ![zeitEingabe isEnabled];
+	[zeitEingabe setEnabled:enabled];
+	[durchlaufEingabe setEnabled:enabled];
+	[ersterKeyboardPopUp setEnabled:enabled];
+	[zweiterKeyboardPopUp setEnabled:enabled];
+	[ersterName setEnabled:enabled];
+	[zweiterName setEnabled:enabled];
+	
 }
 
 - (void)switchUser{
@@ -81,22 +85,25 @@
 		[messageLabel setStringValue:@"Zeit für ne Pause!"];
 	}
 	
-	[alertWindow makeKeyAndOrderFront:nil]; 
+	[self showAlert];
 }
 
 - (IBAction)weiter:(id)sender{
-	[self hideWindow];
+	[self hideAlert];
 	[self startTimer];
 }
 
 - (IBAction)genug:(id)sender{
 	[goButton setState:NSOffState];
-	[self hideWindow];
-	[self toggleInterface];
+	[self hideAlert];
+	[self toggleInputElements];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self]; 
 }
 
-- (void)hideWindow{
+- (void)showAlert{
+	[alertWindow makeKeyAndOrderFront:nil]; 
+}
+- (void)hideAlert{
 	[alertWindow orderOut:nil];
 }
 

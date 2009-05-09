@@ -20,23 +20,25 @@
 	NSTimer *ticker;
 	NSDate *startDate;
 	NSInteger time;
-	NSNumber *timeObject;
 	int durchlaeufe;
 	NSUInteger iteration;
 }
+
 -(void)gatherDataFromUI;
-- (void)toggleInterface;
-- (void)hideWindow;
+- (void)toggleInputElements;
+- (void)hideAlert;
+- (void)showAlert;
+
 - (IBAction)weiter:(id)sender;
 - (IBAction)genug:(id)sender;
+- (IBAction)go:(id) sender;
+
 - (void)startTimer;
-- (IBAction)startTimer:(id) sender;
 - (void)switchUser;
 - (void)tick:(NSTimer *)theTimer;
 - (void)startTicker;
 - (void)setTimeLabelTo:(int)minutes and:(int)seconds;
 - (void)nextUser;
 
-@property (nonatomic,retain) NSNumber *timeObject;
 @property (nonatomic,retain) NSArray *users;
 @end
