@@ -26,28 +26,36 @@
 	[ersterKeyboardPopUp setMenu:menu1];
 	[zweiterKeyboardPopUp setMenu:menu2];
 	
-	//[alertWindow setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
+	[alertWindow setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
+}
+
+- (void)nextUser{
+	iteration++;
+	User *u = [users objectAtIndex:iteration%2];
+	TISSelectInputSource(u.inputSource );
+	[messageLabel setStringValue:[NSString stringWithFormat:@"Jetzt ist %@ dran!",u.name]];
+	[currentUserLabel setStringValue:[NSString stringWithFormat:@"%@ ist gerade dran",u.name]];
 }
 
 - (IBAction)startTimer:(id) sender {
-	NSLog(@"starting timer");
-	TISSelectInputSource(erstesKeboardLayout);
-
-	//NSLog(@"%d",[sender state]);
 	if ([sender state] == NSOnState) {
-		time = [zeitEingabe intValue] * 60;
-		durchlaeufe = [durchlaufEingabe intValue];
-		User *u1 = [[User alloc] initWithName:[ersterName stringValue]];
-		u1.inputSource = (TISInputSourceRef) [[ersterKeyboardPopUp selectedItem] representedObject];
-		User *u2 = [[User alloc] initWithName:[zweiterName stringValue]];
-		u2.inputSource = (TISInputSourceRef) [[zweiterKeyboardPopUp selectedItem] representedObject];
-		self.users = [NSArray arrayWithObjects:u1,u2,nil];
-		NSLog(@"%d",time);
+		[self gatherDataFromUI];
 		[self startTimer];
+		[self nextUser];
 	} else {
 		[ticker invalidate];
 		[self genug:self];
 	}
+}
+
+-(void)gatherDataFromUI{
+	time = [zeitEingabe intValue] * 60;
+	durchlaeufe = [durchlaufEingabe intValue];
+	User *u1 = [[User alloc] initWithName:[ersterName stringValue]];
+	u1.inputSource = (TISInputSourceRef) [[ersterKeyboardPopUp selectedItem] representedObject];
+	User *u2 = [[User alloc] initWithName:[zweiterName stringValue]];
+	u2.inputSource = (TISInputSourceRef) [[zweiterKeyboardPopUp selectedItem] representedObject];
+	self.users = [NSArray arrayWithObjects:u1,u2,nil];
 }
 
 -(void)startTimer{
@@ -67,9 +75,7 @@
 	[ticker invalidate];
 	if (durchlaeufe > 0) {
 		durchlaeufe--;
-		[messageLabel setStringValue:@"Der nächste Bitte!"];
-		User *u = [users objectAtIndex:0];
-		TISSelectInputSource(u.inputSource );
+		[self nextUser];
 	} else {
 		durchlaeufe = [durchlaufEingabe intValue];
 		[messageLabel setStringValue:@"Zeit für ne Pause!"];

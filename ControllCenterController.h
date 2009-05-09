@@ -1,12 +1,13 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
-
+@class User;
 @interface ControllCenterController : NSWindowController {
 	IBOutlet NSTextField *zeitEingabe;
 	IBOutlet NSTextField *durchlaufEingabe;
 	IBOutlet NSTextField *elapsedTimeLabel;
 	IBOutlet NSTextField *durchlaufLabel;
 	IBOutlet NSTextField *messageLabel;
+	IBOutlet NSTextField *currentUserLabel;
 	IBOutlet NSButton *goButton;
 	IBOutlet NSPanel *alertWindow;
 	IBOutlet NSPopUpButton *ersterKeyboardPopUp;
@@ -14,16 +15,16 @@
 	IBOutlet NSTextField *ersterName;
 	IBOutlet NSTextField *zweiterName;
 	
-	TISInputSourceRef erstesKeboardLayout;
 	NSArray *users;
 	NSWindow *mainWindow;
 	NSTimer *ticker;
 	NSDate *startDate;
-	int time;
+	NSInteger time;
 	NSNumber *timeObject;
 	int durchlaeufe;
+	NSUInteger iteration;
 }
-
+-(void)gatherDataFromUI;
 - (void)toggleInterface;
 - (void)hideWindow;
 - (IBAction)weiter:(id)sender;
@@ -34,6 +35,7 @@
 - (void)tick:(NSTimer *)theTimer;
 - (void)startTicker;
 - (void)setTimeLabelTo:(int)minutes and:(int)seconds;
+- (void)nextUser;
 
 @property (nonatomic,retain) NSNumber *timeObject;
 @property (nonatomic,retain) NSArray *users;
