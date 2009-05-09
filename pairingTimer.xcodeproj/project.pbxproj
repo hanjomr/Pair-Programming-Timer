@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		577424830FB46C350038D4FE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 577424820FB46C350038D4FE /* Carbon.framework */; };
+		57A08AA10FB4BC140058DB8F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 57A08AA00FB4BC140058DB8F /* User.m */; };
 		57B5E39E0FAF914B0098D229 /* pairingtimer.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57B5E39D0FAF914B0098D229 /* pairingtimer.icns */; };
 		57E273980FA39C51003A7CA6 /* ControllCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E273970FA39C51003A7CA6 /* ControllCenterController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -18,12 +20,14 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* pairingTimer_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pairingTimer_Prefix.pch; sourceTree = "<group>"; };
+		577424820FB46C350038D4FE /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		57A08A9F0FB4BC140058DB8F /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		57A08AA00FB4BC140058DB8F /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		57B5E39D0FAF914B0098D229 /* pairingtimer.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pairingtimer.icns; sourceTree = "<group>"; };
 		57E273960FA39C51003A7CA6 /* ControllCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllCenterController.h; sourceTree = "<group>"; };
 		57E273970FA39C51003A7CA6 /* ControllCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllCenterController.m; sourceTree = "<group>"; };
@@ -37,6 +41,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				577424830FB46C350038D4FE /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,8 @@
 			children = (
 				57E273960FA39C51003A7CA6 /* ControllCenterController.h */,
 				57E273970FA39C51003A7CA6 /* ControllCenterController.m */,
+				57A08A9F0FB4BC140058DB8F /* User.h */,
+				57A08AA00FB4BC140058DB8F /* User.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -64,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
-				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
@@ -113,6 +119,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				577424820FB46C350038D4FE /* Carbon.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -177,6 +184,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				57E273980FA39C51003A7CA6 /* ControllCenterController.m in Sources */,
+				57A08AA10FB4BC140058DB8F /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
