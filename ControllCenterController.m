@@ -28,13 +28,8 @@
 	[alertWindow setCollectionBehavior:NSWindowCollectionBehaviorMoveToActiveSpace];
 }
 
-- (void)nextUser{
-	iteration++;
-	User *u = [users objectAtIndex:iteration%2];
-	TISSelectInputSource(u.inputSource );
-	[messageLabel setStringValue:[NSString stringWithFormat:@"Jetzt ist %@ dran!",u.name]];
-	[currentUserLabel setStringValue:[NSString stringWithFormat:@"%@ ist gerade dran",u.name]];
-}
+#pragma mark -
+#pragma mark Actions
 
 - (IBAction)go:(id) sender {
 	if ([sender state] == NSOnState) {
@@ -45,6 +40,26 @@
 		[ticker invalidate];
 		[self genug:self];
 	}
+}
+
+- (IBAction)weiter:(id)sender{
+	[self hideAlert];
+	[self startTimer];
+}
+
+- (IBAction)genug:(id)sender{
+	[goButton setState:NSOffState];
+	[self hideAlert];
+	[self toggleInputElements];
+	[NSObject cancelPreviousPerformRequestsWithTarget:self]; 
+}
+
+- (void)nextUser{
+	iteration++;
+	User *u = [users objectAtIndex:iteration%2];
+	TISSelectInputSource(u.inputSource );
+	[messageLabel setStringValue:[NSString stringWithFormat:@"Jetzt ist %@ dran!",u.name]];
+	[currentUserLabel setStringValue:[NSString stringWithFormat:@"%@ ist gerade dran",u.name]];
 }
 
 -(void)gatherDataFromUI{
@@ -60,8 +75,10 @@
 -(void)startTimer{
 	[self toggleInputElements];
 	[durchlaufLabel setIntValue:durchlaeufe];
-	[self performSelector:@selector(switchUser) withObject:nil afterDelay:time];
-	[self startTicker];
+	[self performSelector:@selector(showAlert) withObject:nil afterDelay:time];
+	ticker = [NSTimer scheduledTimerWithTimeInterval:1  target:self selector:@selector(tick:) userInfo:nil repeats:YES]; 
+	startDate = [[NSDate date] retain]; 
+	[ticker fire];
 }
 
 - (void)toggleInputElements {
@@ -75,7 +92,7 @@
 	
 }
 
-- (void)switchUser{
+- (void)showAlert{
 	[ticker invalidate];
 	if (durchlaeufe > 0) {
 		durchlaeufe--;
@@ -85,32 +102,11 @@
 		[messageLabel setStringValue:@"Zeit für ne Pause!"];
 	}
 	
-	[self showAlert];
+	[alertWindow makeKeyAndOrderFront:nil];
 }
 
-- (IBAction)weiter:(id)sender{
-	[self hideAlert];
-	[self startTimer];
-}
-
-- (IBAction)genug:(id)sender{
-	[goButton setState:NSOffState];
-	[self hideAlert];
-	[self toggleInputElements];
-	[NSObject cancelPreviousPerformRequestsWithTarget:self]; 
-}
-
-- (void)showAlert{
-	[alertWindow makeKeyAndOrderFront:nil]; 
-}
 - (void)hideAlert{
 	[alertWindow orderOut:nil];
-}
-
-- (void)startTicker{
-	ticker = [NSTimer scheduledTimerWithTimeInterval:1  target:self selector:@selector(tick:) userInfo:nil repeats:YES]; 
-	startDate = [[NSDate date] retain]; 
-	[ticker fire];
 }
 
 - (void)tick:(NSTimer *)theTimer {

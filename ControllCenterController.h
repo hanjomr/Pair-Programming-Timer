@@ -24,8 +24,9 @@
 	NSUInteger iteration;
 }
 
--(void)gatherDataFromUI;
+- (void)gatherDataFromUI;
 - (void)toggleInputElements;
+
 - (void)hideAlert;
 - (void)showAlert;
 
@@ -34,9 +35,8 @@
 - (IBAction)go:(id) sender;
 
 - (void)startTimer;
-- (void)switchUser;
 - (void)tick:(NSTimer *)theTimer;
-- (void)startTicker;
+
 - (void)setTimeLabelTo:(int)minutes and:(int)seconds;
 - (void)nextUser;
 
