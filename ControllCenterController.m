@@ -5,7 +5,7 @@
 @synthesize users;
 
 - (void)awakeFromNib {
-	NSLog(@"laoding");
+	formerInputSource = TISCopyCurrentKeyboardInputSource();
 	NSDictionary *properties = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%@", kTISTypeKeyboardLayout] forKey:(NSString*)kTISPropertyInputSourceType];
 	CFArrayRef a = TISCreateInputSourceList((CFDictionaryRef)properties, NO);
 	NSArray *ary = [NSArray arrayWithArray:(NSArray*)a];
@@ -52,6 +52,8 @@
 	[self hideAlert];
 	[self toggleInputElements];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self]; 
+	TISSelectInputSource(formerInputSource);
+	[self setTimeLabelTo:0 and:0];
 }
 
 - (void)nextUser{
@@ -84,6 +86,8 @@
 - (void)toggleInputElements {
 	BOOL enabled = ![zeitEingabe isEnabled];
 	[zeitEingabe setEnabled:enabled];
+	[zeitSteper setEnabled:enabled];
+	[durchlaufSteper setEnabled:enabled];
 	[durchlaufEingabe setEnabled:enabled];
 	[ersterKeyboardPopUp setEnabled:enabled];
 	[zweiterKeyboardPopUp setEnabled:enabled];
@@ -113,13 +117,10 @@
     NSTimeInterval myInterval = -[startDate timeIntervalSinceNow];
     int seconds = ((int) myInterval) % 60;
     int minutes = ((int) (myInterval - seconds) / 60) % 60;
-	[self setTimeLabelTo:minutes and:seconds];
-    
+	[self setTimeLabelTo:(time/60)-minutes-1 and:60-seconds-1];
 }
 
 - (void) setTimeLabelTo:(int)minutes and:(int)seconds{
-	int minute = (time/60) - minutes - 1;
-	int second = 60 - seconds - 1;
-	[elapsedTimeLabel setStringValue:[NSString stringWithFormat:@"%.2d:%.2d", minute, second]];
+	[elapsedTimeLabel setStringValue:[NSString stringWithFormat:@"%.2d:%.2d", minutes, seconds]];
 }
 @end

@@ -3,7 +3,9 @@
 @class User;
 @interface ControllCenterController : NSWindowController {
 	IBOutlet NSTextField *zeitEingabe;
+	IBOutlet NSStepper *zeitSteper;
 	IBOutlet NSTextField *durchlaufEingabe;
+	IBOutlet NSStepper *durchlaufSteper;
 	IBOutlet NSTextField *elapsedTimeLabel;
 	IBOutlet NSTextField *durchlaufLabel;
 	IBOutlet NSTextField *messageLabel;
@@ -22,6 +24,8 @@
 	NSInteger time;
 	int durchlaeufe;
 	NSUInteger iteration;
+	
+	TISInputSourceRef formerInputSource;
 }
 
 - (void)gatherDataFromUI;
